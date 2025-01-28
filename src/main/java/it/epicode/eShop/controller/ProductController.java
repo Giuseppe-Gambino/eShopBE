@@ -19,9 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-
-    @Autowired
-    private ProductSvc productSvc;
+    private final ProductSvc productSvc;
 
     @GetMapping
     public ResponseEntity<List<Product>> findAll() {
@@ -43,9 +41,9 @@ public class ProductController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<Product> create(@RequestBody ProductDTO productDTO) {
-        Product createdProduct = productSvc.create(productDTO);
+    @PostMapping("/{idCategory}")
+    public ResponseEntity<Product> create(@PathVariable Long idCategory, @RequestBody ProductDTO productDTO) {
+        Product createdProduct = productSvc.create(idCategory,productDTO);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 

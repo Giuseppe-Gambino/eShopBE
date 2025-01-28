@@ -22,7 +22,7 @@ import java.util.Map;
 @Service
 public class ProductSvc {
     private final ProductRepository productRepository;
-
+    private final CategorySvc categorySvc;
     private final CloudinarySvc cloudinarySvc;
 
 
@@ -39,11 +39,13 @@ public class ProductSvc {
            .orElseThrow(() -> new EntityNotFoundException("Prodotto non trovato"));
     }
 
-    public Product create(ProductDTO productDTO) {
+    public Product create(Long idCategory,ProductDTO productDTO) {
         Product product = new Product();
         BeanUtils.copyProperties(productDTO,product);
         product.setCreatedAt(LocalDate.now());
         product.getPriceHistory().put(LocalDate.now(),product.getPrice());
+        product.setCategory(categorySvc.findById(idCategory));
+
         return productRepository.save(product);
     }
 
