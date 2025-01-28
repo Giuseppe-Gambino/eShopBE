@@ -1,5 +1,6 @@
 package it.epicode.eShop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ public class CartItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id")
+    @JsonIgnore
     private Cart cart;
 
     @ManyToOne
@@ -21,5 +22,6 @@ public class CartItem {
 
     @Column(name = "quantity")
     private Integer quantity;
+
 
 }

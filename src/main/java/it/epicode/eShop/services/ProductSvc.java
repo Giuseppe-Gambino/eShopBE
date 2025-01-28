@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.util.BeanUtil;
 import it.epicode.eShop.cloudinary.CloudinarySvc;
 import it.epicode.eShop.dto.ProductDTO;
 import it.epicode.eShop.entity.Product;
+import it.epicode.eShop.repo.CartItemRepository;
 import it.epicode.eShop.repo.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class ProductSvc {
     private final ProductRepository productRepository;
     private final CategorySvc categorySvc;
     private final CloudinarySvc cloudinarySvc;
+    private final CartItemSvc cartItemSvc;
 
 
     public List<Product> findAll() {
@@ -48,6 +50,7 @@ public class ProductSvc {
 
         return productRepository.save(product);
     }
+
 
     public Product updateImg(Long id, List<MultipartFile> imageFiles){
 

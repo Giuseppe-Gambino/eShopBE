@@ -1,7 +1,9 @@
 package it.epicode.eShop.auth;
 
+import it.epicode.eShop.services.CartSvc;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,9 @@ public class AppUserService {
     private AppUserRepository appUserRepository;
 
     @Autowired
+    private CartSvc cartSvc;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -30,6 +35,7 @@ public class AppUserService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Transactional
     public AppUser registerUser(RegisterRequest registerRequest, Set<Role> roles) {
         if (appUserRepository.existsByUsername(registerRequest.getUsername())) {
             throw new EntityExistsException("Username già in uso");
@@ -44,8 +50,12 @@ public class AppUserService {
         appUser.setCognome(registerRequest.getCognome());
         appUser.setRoles(roles);
 
+        appUserRepository.save(appUser);
 
-        return appUserRepository.save(appUser);
+        cartSvc.create(appUser);
+
+
+        return appUser;
     }
 
     public Optional<AppUser> findByUsername(String username) {

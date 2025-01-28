@@ -3,6 +3,7 @@ package it.epicode.eShop.entity;
 import it.epicode.eShop.auth.AppUser;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.engine.spi.Status;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,7 +27,7 @@ public class Order {
 
     @Enumerated
     @Column(name = "status")
-    private it.epicode.eShop.enums.status status;
+    private Status status;
 
     @Column(name = "created_at")
     private LocalDate createdAt;

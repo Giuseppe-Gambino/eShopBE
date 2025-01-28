@@ -19,6 +19,7 @@ public class Cart {
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 
+
     @OneToMany(mappedBy = "cart", orphanRemoval = true)
     private List<CartItem> cartItems = new ArrayList<>();
 
