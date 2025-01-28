@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -22,6 +24,11 @@ public class CartSvc {
     private final ProductRepository productRepository;
     private final CartItemRepository cartItemRepository;
 
+    public Cart getCartByUser(UserDetails user) {
+        Cart cart = cartRepository.findByAppUser_Username(user.getUsername())
+                .orElseThrow(() -> new EntityNotFoundException("Utente con username:" + user.getUsername() + "non trovato"));
+        return cart;
+    }
 
     public Cart create(AppUser appUser) {
         Cart cart = new Cart();
@@ -64,5 +71,39 @@ public class CartSvc {
         // 4. Salva il carrello aggiornato
         return cartRepository.save(cart);
     }
+
+    public Cart deleteCartItemFromCart(Long idCartItem, UserDetails user) {
+        // Trova il carrello dell'utente
+        Cart cart = cartRepository.findByAppUser_Username(user.getUsername())
+                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + user.getUsername() + " non trovato"));
+
+        // Ottieni la lista degli articoli del carrello
+        List<CartItem> cartItemList = cart.getCartItems();
+
+        // Trova l'articolo del carrello esistente
+        Optional<CartItem> existingCartItem = cartItemList.stream()
+                .filter(item -> item.getId().equals(idCartItem))
+                .findFirst();
+
+        // Se l'articolo esiste, rimuovilo dalla lista
+        if (existingCartItem.isPresent()) {
+            // Rimuovi l'elemento dalla lista
+            cartItemList.remove(existingCartItem.get());
+
+            // Rimuovi l'articolo dal database
+            cartItemRepository.delete(existingCartItem.get()); // Assicurati di avere un repository per CartItem
+        } else {
+            throw new EntityNotFoundException("CartItem con id: " + idCartItem + " non trovato nel carrello.");
+        }
+
+        // Aggiorna il carrello
+        cart.setCartItems(cartItemList);
+
+        // Salva il carrello nel repository
+        cartRepository.save(cart);
+
+        return cart; // Restituisci il carrello aggiornato
+    }
+
 
 }

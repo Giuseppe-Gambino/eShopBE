@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,5 +22,16 @@ public class CartController {
 
         Cart updatedCart = cartSvc.addProductToCart(productId, quantity, user);
         return ResponseEntity.ok(updatedCart);
+    }
+
+    @GetMapping
+    public ResponseEntity<Cart> getCartByUser(@AuthenticationPrincipal UserDetails user) {
+        return ResponseEntity.ok(cartSvc.getCartByUser(user));
+    }
+
+    @PutMapping("/{idCartItem}")
+    public ResponseEntity<Cart> updateCart(@PathVariable Long idCartItem,@AuthenticationPrincipal UserDetails user) {
+        Cart cart = cartSvc.deleteCartItemFromCart(idCartItem,user);
+        return ResponseEntity.ok(cart);
     }
 }
