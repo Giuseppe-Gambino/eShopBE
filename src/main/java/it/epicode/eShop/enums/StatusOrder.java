@@ -1,6 +1,6 @@
 package it.epicode.eShop.enums;
 
-public enum status {
+public enum StatusOrder {
     PENDING,
     PAID,
     CANCELLED

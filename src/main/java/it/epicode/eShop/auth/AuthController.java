@@ -3,6 +3,7 @@ package it.epicode.eShop.auth;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -35,28 +36,32 @@ public class AuthController {
     }
 
     @GetMapping
-    public AppUser getUser(@AuthenticationPrincipal UserDetails user) {
-        return appUserService.loadUserByUsername(user.getUsername());
+    public ResponseEntity<AppUser> getUser(@AuthenticationPrincipal UserDetails user) {
+        return ResponseEntity.ok(appUserService.loadUserByUsername(user.getUsername()));
     }
 
-    @PutMapping("/seller")
-    public AppUser updateToSeller(@AuthenticationPrincipal UserDetails user) {
-                return appUserService.updateToSeller(user.getUsername());
+    @PutMapping("/promoteSeller/{idUser}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<AppUser> updateToSeller(@PathVariable Long idUser) {
+                return ResponseEntity.ok(appUserService.updateToSeller(idUser));
     }
 
-    @PutMapping("/admin")
-    public AppUser updateToAdmin(@AuthenticationPrincipal UserDetails user) {
-        return appUserService.updateToAdmin(user.getUsername());
+    @PutMapping("/promoteAdmin/{idUser}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<AppUser> updateToAdmin(@PathVariable Long idUser) {
+        return ResponseEntity.ok(appUserService.updateToAdmin(idUser));
     }
 
-    @PutMapping("/removeSeller")
-    public AppUser removeSeller(@AuthenticationPrincipal UserDetails user) {
-        return appUserService.removeSeller(user.getUsername());
+    @PutMapping("/removeSeller/{idUser}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<AppUser> removeSeller(@PathVariable Long idUser) {
+        return ResponseEntity.ok(appUserService.removeSeller(idUser));
     }
 
-    @PutMapping("/removeAdmin")
-    public AppUser removeAdmin(@AuthenticationPrincipal UserDetails user) {
-        return appUserService.removeAdmin(user.getUsername());
+    @PutMapping("/removeAdmin/{idUser}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<AppUser> removeAdmin(@PathVariable Long idUser) {
+        return ResponseEntity.ok(appUserService.removeAdmin(idUser));
     }
 }
 

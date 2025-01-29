@@ -1,6 +1,6 @@
 package it.epicode.eShop.enums;
 
-public enum paymentStatus {
+public enum PaymentStatus {
     SUCCESS,
     FAILED
 }

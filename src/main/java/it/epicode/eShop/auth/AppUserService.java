@@ -94,9 +94,9 @@ public class AppUserService {
         return appUser;
     }
 
-    public AppUser updateToSeller(String username) {
-        AppUser appUser = appUserRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
+    public AppUser updateToSeller(Long idUser) {
+        AppUser appUser = appUserRepository.findById(idUser)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con id: " + idUser + "non trovato"));
 
         Set<Role> roles = new HashSet<>(appUser.getRoles());
         roles.add(Role.ROLE_SELLER);
@@ -105,9 +105,9 @@ public class AppUserService {
         return appUserRepository.save(appUser);
     }
 
-    public AppUser updateToAdmin(String username) {
-        AppUser appUser = appUserRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
+    public AppUser updateToAdmin(Long idUser) {
+        AppUser appUser = appUserRepository.findById(idUser)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con id: " + idUser + "non trovato"));
 
         Set<Role> roles = new HashSet<>(appUser.getRoles());
         roles.add(Role.ROLE_ADMIN);
@@ -116,9 +116,9 @@ public class AppUserService {
         return appUserRepository.save(appUser);
     }
 
-    public AppUser removeSeller(String username) {
-        AppUser appUser = appUserRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
+    public AppUser removeSeller(Long idUser) {
+        AppUser appUser = appUserRepository.findById(idUser)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con id: " + idUser + "non trovato"));
 
         Set<Role> roles = new HashSet<>(appUser.getRoles());
         roles.remove(Role.ROLE_SELLER);
@@ -127,9 +127,9 @@ public class AppUserService {
         return appUserRepository.save(appUser);
     }
 
-    public AppUser removeAdmin(String username) {
-        AppUser appUser = appUserRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
+    public AppUser removeAdmin(Long idUser) {
+        AppUser appUser = appUserRepository.findById(idUser)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con id: " + idUser+ "non trovato"));
 
         Set<Role> roles = new HashSet<>(appUser.getRoles());
         roles.remove(Role.ROLE_ADMIN);

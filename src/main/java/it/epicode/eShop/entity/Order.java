@@ -1,6 +1,7 @@
 package it.epicode.eShop.entity;
 
 import it.epicode.eShop.auth.AppUser;
+import it.epicode.eShop.enums.StatusOrder;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.engine.spi.Status;
@@ -27,7 +28,7 @@ public class Order {
 
     @Enumerated
     @Column(name = "status")
-    private Status status;
+    private StatusOrder status;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
