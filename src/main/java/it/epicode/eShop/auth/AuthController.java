@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -39,6 +40,13 @@ public class AuthController {
     public ResponseEntity<AppUser> getUser(@AuthenticationPrincipal UserDetails user) {
         return ResponseEntity.ok(appUserService.loadUserByUsername(user.getUsername()));
     }
+
+    @GetMapping("/findAll")
+    public ResponseEntity<List<AppUser>> getUser() {
+        return ResponseEntity.ok(appUserService.findAll());
+    }
+
+
 
     @PutMapping("/promoteSeller/{idUser}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
