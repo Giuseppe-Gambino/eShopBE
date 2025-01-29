@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -87,9 +88,53 @@ public class AppUserService {
 
     public AppUser loadUserByUsername(String username)  {
         AppUser appUser = appUserRepository.findByUsername(username)
-            .orElseThrow(() -> new EntityNotFoundException("Utente non trovato con username: " + username));
+            .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
 
 
         return appUser;
+    }
+
+    public AppUser updateToSeller(String username) {
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
+
+        Set<Role> roles = new HashSet<>(appUser.getRoles());
+        roles.add(Role.ROLE_SELLER);
+        appUser.setRoles(roles);
+
+        return appUserRepository.save(appUser);
+    }
+
+    public AppUser updateToAdmin(String username) {
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
+
+        Set<Role> roles = new HashSet<>(appUser.getRoles());
+        roles.add(Role.ROLE_ADMIN);
+        appUser.setRoles(roles);
+
+        return appUserRepository.save(appUser);
+    }
+
+    public AppUser removeSeller(String username) {
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
+
+        Set<Role> roles = new HashSet<>(appUser.getRoles());
+        roles.remove(Role.ROLE_SELLER);
+        appUser.setRoles(roles);
+
+        return appUserRepository.save(appUser);
+    }
+
+    public AppUser removeAdmin(String username) {
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
+
+        Set<Role> roles = new HashSet<>(appUser.getRoles());
+        roles.remove(Role.ROLE_ADMIN);
+        appUser.setRoles(roles);
+
+        return appUserRepository.save(appUser);
     }
 }
