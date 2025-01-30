@@ -5,12 +5,14 @@ import it.epicode.eShop.cloudinary.CloudinarySvc;
 import it.epicode.eShop.dto.ProductDTO;
 import it.epicode.eShop.entity.Product;
 import it.epicode.eShop.repo.ProductRepository;
+import it.epicode.eShop.repo.specs.ProductSpecs;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -103,6 +105,25 @@ public class ProductSvc {
         productRepository.deleteById(id);
     }
 
-//    fare i filtri
 
+
+    public Page<Product> getFilteredProducts(String name, String category, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
+        Specification<Product> spec = Specification.where(null);
+
+        if (name != null) {
+            spec = spec.and(ProductSpecs.hasName(name));
+        }
+        if (category != null) {
+            spec = spec.and(ProductSpecs.hasCategory(category));
+        }
+        if (minPrice != null) {
+            spec = spec.and(ProductSpecs.priceGreaterThan(minPrice));
+        }
+        if (maxPrice != null) {
+            spec = spec.and(ProductSpecs.priceLessThan(maxPrice));
+        }
+
+
+        return productRepository.findAll(spec, pageable);
+    }
 }
