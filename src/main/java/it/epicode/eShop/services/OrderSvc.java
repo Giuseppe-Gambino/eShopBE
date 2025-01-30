@@ -12,6 +12,8 @@ import it.epicode.eShop.repo.CartItemRepository;
 import it.epicode.eShop.repo.CartRepository;
 import it.epicode.eShop.repo.OrderItemRepository;
 import it.epicode.eShop.repo.OrderRepository;
+import it.epicode.eShop.stripe.dto.StripeResponse;
+import it.epicode.eShop.stripe.service.StripeService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +32,10 @@ public class OrderSvc {
     private final CartItemRepository cartItemRepository;
     private final OrderItemRepository orderItemRepository;
     private final AppUserRepository appUserRepository;
+    private final StripeService stripeService;
 
     @Transactional
-    public Order createOrder(String username) {
+    public StripeResponse createOrder(String username) {
         AppUser appUser = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
 
@@ -81,7 +84,7 @@ public class OrderSvc {
 
 
 
-        return order;
+        return stripeService.checkoutProducts(order);
     }
 
     public List<Order> findAll() {

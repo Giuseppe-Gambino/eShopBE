@@ -6,10 +6,13 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 
 import com.stripe.param.checkout.SessionCreateParams;
+import it.epicode.eShop.entity.Order;
 import it.epicode.eShop.stripe.dto.ProductRequest;
 import it.epicode.eShop.stripe.dto.StripeResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class StripeService {
@@ -21,23 +24,26 @@ public class StripeService {
     //-> productName , amount , quantity , currency
     //-> return sessionId and url
 
+    BigDecimal valore = new BigDecimal("200.00");
+    Long amount = valore.longValueExact() * 100;
 
 
-        public StripeResponse checkoutProducts(ProductRequest productRequest) {
+
+    public StripeResponse checkoutProducts(Order order) {
             // Set your secret key. Remember to switch to your live secret key in production!
             Stripe.apiKey = secretKey;
 
             // Create a PaymentIntent with the order amount and currency
             SessionCreateParams.LineItem.PriceData.ProductData productData =
                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                            .setName(productRequest.getName())
+                            .setName("Order N:" + order.getId())
                             .build();
 
             // Create new line item with the above product data and associated price
             SessionCreateParams.LineItem.PriceData priceData =
                     SessionCreateParams.LineItem.PriceData.builder()
-                            .setCurrency(productRequest.getCurrency() != null ? productRequest.getCurrency() : "USD")
-                            .setUnitAmount(productRequest.getAmount())
+                            .setCurrency("EUR")
+                            .setUnitAmount(order.getTotal().longValueExact()*100)
                             .setProductData(productData)
                             .build();
 
@@ -45,7 +51,7 @@ public class StripeService {
             SessionCreateParams.LineItem lineItem =
                     SessionCreateParams
                             .LineItem.builder()
-                            .setQuantity(productRequest.getQuantity())
+                            .setQuantity(1L)
                             .setPriceData(priceData)
                             .build();
 

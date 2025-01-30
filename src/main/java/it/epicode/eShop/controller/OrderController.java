@@ -3,6 +3,7 @@ package it.epicode.eShop.controller;
 import it.epicode.eShop.entity.Order;
 import it.epicode.eShop.entity.Product;
 import it.epicode.eShop.services.OrderSvc;
+import it.epicode.eShop.stripe.dto.StripeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,8 @@ public class OrderController {
     private final OrderSvc orderSvc;
 
     @PostMapping("/create")
-    public ResponseEntity<Order> create(@AuthenticationPrincipal UserDetails user) {
-        orderSvc.createOrder(user.getUsername());
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<StripeResponse> create(@AuthenticationPrincipal UserDetails user) {
+        return new ResponseEntity<>(orderSvc.createOrder(user.getUsername()),HttpStatus.CREATED);
     }
 
     @GetMapping
