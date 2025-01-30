@@ -1,6 +1,7 @@
 package it.epicode.eShop.exceptions;
 
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -37,5 +38,10 @@ public class ExceptionHandlerClass extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = UploadException.class)
     protected ResponseEntity<String> uploadExceptionHandler(UploadException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(EntityExistsException.class)
+    public ResponseEntity<String> handleEntityExistsException(EntityExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 }

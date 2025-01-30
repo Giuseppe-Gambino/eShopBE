@@ -142,4 +142,8 @@ public class AppUserService {
     public List<AppUser> findAll() {
        return appUserRepository.findAll();
     }
+
+    public Boolean existsByUsername(String username) {
+        return appUserRepository.existsByUsername(username);
+    }
 }

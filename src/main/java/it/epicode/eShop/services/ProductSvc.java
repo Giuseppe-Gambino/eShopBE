@@ -1,11 +1,11 @@
 package it.epicode.eShop.services;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
+
 import it.epicode.eShop.cloudinary.CloudinarySvc;
 import it.epicode.eShop.dto.ProductDTO;
 import it.epicode.eShop.entity.Product;
-import it.epicode.eShop.repo.CartItemRepository;
 import it.epicode.eShop.repo.ProductRepository;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -42,6 +42,12 @@ public class ProductSvc {
     }
 
     public Product create(Long idCategory,ProductDTO productDTO) {
+
+        if (productRepository.existsByName(productDTO.getName())) {
+            throw new EntityExistsException("Prodotto esistente o nome prodotto già in uso");
+        }
+
+
         Product product = new Product();
         BeanUtils.copyProperties(productDTO,product);
         product.setCreatedAt(LocalDate.now());
