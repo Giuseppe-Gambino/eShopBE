@@ -36,4 +36,7 @@ public class Order {
     @OneToMany(mappedBy = "order", orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @Column(name = "stripeSessionId")
+    private String stripeSessionId;
+
 }
