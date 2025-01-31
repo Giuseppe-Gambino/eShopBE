@@ -59,10 +59,10 @@ public class OrderSvc {
         List<OrderItem> orderItemList = new ArrayList<>();
         for(CartItem cartItem : cartItemList) {
             OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
             orderItem.setProduct(cartItem.getProduct());
 
-            int quantity = cartItem.getQuantity();
-            orderItem.setPrice(cartItem.getProduct().getPrice().multiply(BigDecimal.valueOf(quantity)));
+            orderItem.setPrice(cartItem.getProduct().getPrice());
 
             orderItem.setQuantity(cartItem.getQuantity());
 
