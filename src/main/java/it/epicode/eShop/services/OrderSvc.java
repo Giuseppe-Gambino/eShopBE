@@ -59,7 +59,6 @@ public class OrderSvc {
         List<OrderItem> orderItemList = new ArrayList<>();
         for(CartItem cartItem : cartItemList) {
             OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
             orderItem.setProduct(cartItem.getProduct());
 
             int quantity = cartItem.getQuantity();
@@ -68,7 +67,12 @@ public class OrderSvc {
             orderItem.setQuantity(cartItem.getQuantity());
 
             orderItemList.add(orderItem);
+
+//            aggiungo gli orderItem nell'order
+            order.getOrderItems().add(orderItem);
         }
+
+
         BigDecimal totalOrderPrice = orderItemList.stream()
                 .map(OrderItem::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add); // Somma tutti i prezzi
@@ -81,7 +85,6 @@ public class OrderSvc {
 
         cart.getCartItems().clear();
         cartRepository.save(cart);
-
 
 
         return stripeService.checkoutProducts(order);

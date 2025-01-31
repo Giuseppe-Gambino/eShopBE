@@ -1,5 +1,8 @@
 package it.epicode.eShop.auth;
 
+import it.epicode.eShop.dto.CategoryDTO;
+import it.epicode.eShop.entity.Category;
+import it.epicode.eShop.services.CategorySvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -17,6 +20,9 @@ public class AuthRunner implements ApplicationRunner {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CategorySvc categorySvc;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -55,6 +61,10 @@ public class AuthRunner implements ApplicationRunner {
             registerRequest.setCognome("seller");
             appUserService.registerUser(registerRequest, Set.of(Role.ROLE_SELLER));
         }
+
+        CategoryDTO category = new CategoryDTO();
+        category.setName("Tech");
+        categorySvc.create(category);
 
 
     }
