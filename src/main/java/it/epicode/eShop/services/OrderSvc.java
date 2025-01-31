@@ -86,8 +86,18 @@ public class OrderSvc {
         cart.getCartItems().clear();
         cartRepository.save(cart);
 
+        orderRepository.save(order);
+
 
         return stripeService.checkoutProducts(order);
+    }
+
+    public void updateOrderPaymentStatus(String stripeSessionId, StatusOrder status) {
+        Order order = orderRepository.findByStripeSessionId(stripeSessionId);
+        if (order != null) {
+            order.setStatus(status);
+            orderRepository.save(order);
+        }
     }
 
     public List<Order> findAll() {
