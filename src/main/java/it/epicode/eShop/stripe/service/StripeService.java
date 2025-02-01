@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +46,15 @@ public class StripeService {
                                 .setName(orderItem.getProduct().getName())
                                 .build();
 
+                BigDecimal priceInEuros = orderItem.getPrice();
+                BigDecimal priceInCents = priceInEuros.multiply(new BigDecimal("100"))
+                        .setScale(0, RoundingMode.HALF_UP);
+
                 // Creazione dati prezzo
                 SessionCreateParams.LineItem.PriceData priceData =
                         SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("EUR")
-                                .setUnitAmount(orderItem.getPrice().longValueExact() * 100)
+                                .setUnitAmount(priceInCents.longValueExact())
                                 .setProductData(productData)
                                 .build();
 
