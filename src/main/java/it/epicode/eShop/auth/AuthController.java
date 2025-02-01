@@ -1,5 +1,6 @@
 package it.epicode.eShop.auth;
 
+import it.epicode.eShop.entity.Product;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -7,12 +8,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -44,6 +46,12 @@ public class AuthController {
     @GetMapping("/findAll")
     public ResponseEntity<List<AppUser>> getUser() {
         return ResponseEntity.ok(appUserService.findAll());
+    }
+
+    @PatchMapping(path = "/user/img", consumes = {"multipart/form-data"})
+    public ResponseEntity<AppUser> updateUserImage(@AuthenticationPrincipal UserDetails user, @RequestParam MultipartFile images) {
+        AppUser appUser = appUserService.updateImg(user.getUsername(),images);
+        return ResponseEntity.ok(appUser); // Restituisci il prodotto aggiornato
     }
 
 

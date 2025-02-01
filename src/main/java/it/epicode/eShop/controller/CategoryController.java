@@ -1,9 +1,7 @@
 package it.epicode.eShop.controller;
 
 import it.epicode.eShop.dto.CategoryDTO;
-import it.epicode.eShop.dto.ProductDTO;
 import it.epicode.eShop.entity.Category;
-import it.epicode.eShop.entity.Product;
 import it.epicode.eShop.services.CategorySvc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

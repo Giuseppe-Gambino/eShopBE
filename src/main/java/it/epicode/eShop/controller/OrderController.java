@@ -7,6 +7,7 @@ import it.epicode.eShop.stripe.dto.StripeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +29,14 @@ public class OrderController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<Order>> findAll() {
         List<Order> orders = orderSvc.findAll();
         return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/byUser")
+    public ResponseEntity<List<Order>> findByUser(@AuthenticationPrincipal UserDetails user) {
+        return ResponseEntity.ok(orderSvc.getOrderByUser(user.getUsername()));
     }
 }

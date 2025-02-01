@@ -6,12 +6,14 @@ import it.epicode.eShop.services.CategorySvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.Set;
 
+@Order(1)
 @Component
 public class AuthRunner implements ApplicationRunner {
 
@@ -21,8 +23,6 @@ public class AuthRunner implements ApplicationRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private CategorySvc categorySvc;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -32,9 +32,9 @@ public class AuthRunner implements ApplicationRunner {
             RegisterRequest registerRequest = new RegisterRequest();
             registerRequest.setUsername("admin");
             registerRequest.setPassword("adminpwd");
-            registerRequest.setEmail("admin454@gmail.com");
-            registerRequest.setNome("admin");
-            registerRequest.setCognome("admin");
+            registerRequest.setEmail("stride454@gmail.com");
+            registerRequest.setNome("STRIDE");
+            registerRequest.setCognome("Owner");
             appUserService.registerUser(registerRequest, Set.of(Role.ROLE_ADMIN));
         }
 
@@ -62,9 +62,6 @@ public class AuthRunner implements ApplicationRunner {
             appUserService.registerUser(registerRequest, Set.of(Role.ROLE_SELLER));
         }
 
-        CategoryDTO category = new CategoryDTO();
-        category.setName("Tech");
-        categorySvc.create(category);
 
 
     }

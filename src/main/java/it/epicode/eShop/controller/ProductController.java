@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,13 +45,13 @@ public class ProductController {
 
 
     @PostMapping("/{idCategory}")
-    public ResponseEntity<Product> create(@PathVariable Long idCategory, @RequestBody ProductDTO productDTO) {
-        Product createdProduct = productSvc.create(idCategory,productDTO);
+    public ResponseEntity<Product> create(@PathVariable Long idCategory, @RequestBody ProductDTO productDTO, @AuthenticationPrincipal UserDetails user) {
+        Product createdProduct = productSvc.create(idCategory,productDTO,user.getUsername());
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
-    @PatchMapping( name = "/products/{id}/images", consumes = {"multipart/form-data"})
-    public ResponseEntity<Product> updateProductImages(@RequestParam Long id, @RequestParam List<MultipartFile> images) {
+    @PatchMapping(path = "/products/{id}/images", consumes = {"multipart/form-data"})
+    public ResponseEntity<Product> updateProductImages(@PathVariable Long id, @RequestParam List<MultipartFile> images) {
         Product product = productSvc.updateImg(id, images);
         return ResponseEntity.ok(product); // Restituisci il prodotto aggiornato
     }

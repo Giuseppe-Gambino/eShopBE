@@ -17,6 +17,7 @@ import it.epicode.eShop.stripe.service.StripeService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -102,5 +103,9 @@ public class OrderSvc {
 
     public List<Order> findAll() {
         return orderRepository.findAll();
+    }
+
+    public List<Order> getOrderByUser(String username) {
+        return orderRepository.findByAppUser_Username(username);
     }
 }

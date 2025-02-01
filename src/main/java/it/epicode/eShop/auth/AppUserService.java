@@ -1,5 +1,6 @@
 package it.epicode.eShop.auth;
 
+import it.epicode.eShop.cloudinary.CloudinarySvc;
 import it.epicode.eShop.services.CartSvc;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,9 +11,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +24,9 @@ import java.util.Set;
 
 @Service
 public class AppUserService {
+
+    @Autowired
+    private CloudinarySvc cloudinarySvc;
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -145,5 +151,15 @@ public class AppUserService {
 
     public Boolean existsByUsername(String username) {
         return appUserRepository.existsByUsername(username);
+    }
+
+    @Transactional
+    public AppUser updateImg(String username, MultipartFile imgFile) {
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
+
+        appUser.setAvatar(cloudinarySvc.uploader(imgFile,"avatarUser").get("url").toString());
+
+       return appUserRepository.save(appUser);
     }
 }

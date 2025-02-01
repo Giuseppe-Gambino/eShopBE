@@ -1,6 +1,8 @@
 package it.epicode.eShop.services;
 
 
+import it.epicode.eShop.auth.AppUser;
+import it.epicode.eShop.auth.AppUserService;
 import it.epicode.eShop.cloudinary.CloudinarySvc;
 import it.epicode.eShop.dto.ProductDTO;
 import it.epicode.eShop.entity.Product;
@@ -27,7 +29,7 @@ public class ProductSvc {
     private final ProductRepository productRepository;
     private final CategorySvc categorySvc;
     private final CloudinarySvc cloudinarySvc;
-    private final CartItemSvc cartItemSvc;
+    private final AppUserService appUserService;
 
 
     public List<Product> findAll() {
@@ -43,7 +45,9 @@ public class ProductSvc {
            .orElseThrow(() -> new EntityNotFoundException("Prodotto non trovato"));
     }
 
-    public Product create(Long idCategory,ProductDTO productDTO) {
+    public Product create(Long idCategory,ProductDTO productDTO, String username) {
+
+        AppUser appUser = appUserService.findByUsername(username).orElseThrow(()->new EntityNotFoundException("Utente loggato non trovato"));
 
         if (productRepository.existsByName(productDTO.getName())) {
             throw new EntityExistsException("Prodotto esistente o nome prodotto già in uso");
@@ -55,9 +59,11 @@ public class ProductSvc {
         product.setCreatedAt(LocalDate.now());
         product.getPriceHistory().put(LocalDate.now(),product.getPrice());
         product.setCategory(categorySvc.findById(idCategory));
+        product.setReseller(appUser);
 
         return productRepository.save(product);
     }
+
 
 
     public Product updateImg(Long id, List<MultipartFile> imageFiles){

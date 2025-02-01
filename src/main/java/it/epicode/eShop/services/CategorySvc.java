@@ -50,4 +50,8 @@ public class CategorySvc {
         }
         categoryRepository.deleteById(id);
     }
+
+    public Boolean existsByNome(String name) {
+        return categoryRepository.existsByName(name);
+    }
 }
