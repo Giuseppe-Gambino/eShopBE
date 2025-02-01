@@ -3,6 +3,7 @@ package it.epicode.eShop.controller;
 import it.epicode.eShop.dto.ProductDTO;
 import it.epicode.eShop.entity.Product;
 import it.epicode.eShop.services.ProductSvc;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,7 +46,7 @@ public class ProductController {
 
 
     @PostMapping("/{idCategory}")
-    public ResponseEntity<Product> create(@PathVariable Long idCategory, @RequestBody ProductDTO productDTO, @AuthenticationPrincipal UserDetails user) {
+    public ResponseEntity<Product> create(@PathVariable Long idCategory, @Valid @RequestBody ProductDTO productDTO, @AuthenticationPrincipal UserDetails user) {
         Product createdProduct = productSvc.create(idCategory,productDTO,user.getUsername());
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
@@ -58,7 +59,7 @@ public class ProductController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<Product> update(@PathVariable Long id,@Valid @RequestBody ProductDTO productDTO) {
             Product updatedProduct = productSvc.update(id, productDTO);
             return ResponseEntity.ok(updatedProduct);
 

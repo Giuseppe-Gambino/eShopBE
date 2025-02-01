@@ -2,6 +2,7 @@ package it.epicode.eShop.auth;
 
 import it.epicode.eShop.entity.Product;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +22,7 @@ public class AuthController {
     private final AppUserService appUserService;
 
     @PostMapping("/register")
-    public ResponseEntity<AppUser> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<AppUser> register(@Valid @RequestBody RegisterRequest registerRequest) {
         AppUser newUser = appUserService.registerUser(
                 registerRequest,
                 Set.of(Role.ROLE_USER) // Assegna il ruolo di default

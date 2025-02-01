@@ -3,6 +3,7 @@ package it.epicode.eShop.controller;
 import it.epicode.eShop.dto.CategoryDTO;
 import it.epicode.eShop.entity.Category;
 import it.epicode.eShop.services.CategorySvc;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,13 +30,13 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> create(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<Category> create(@Valid @RequestBody CategoryDTO categoryDTO) {
         Category createdCategory = categorySvc.create(categoryDTO);
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<Category> update(@PathVariable Long id,@Valid @RequestBody CategoryDTO categoryDTO) {
         Category updatedCategory = categorySvc.update(id, categoryDTO);
         return ResponseEntity.ok(updatedCategory);
 

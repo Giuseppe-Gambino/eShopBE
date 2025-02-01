@@ -4,6 +4,7 @@ import it.epicode.eShop.dto.UsersPromotionsRequestsDTO;
 import it.epicode.eShop.entity.UsersPromotionsRequests;
 import it.epicode.eShop.services.UsersPromotionsRequestsSvc;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class UsersPromotionsRequestsController {
     private final UsersPromotionsRequestsSvc promotionsSvc;
 
     @PostMapping
-    public ResponseEntity<UsersPromotionsRequests> create(@RequestBody UsersPromotionsRequestsDTO usersPromotionsRequestsDTO, @AuthenticationPrincipal UserDetails user) {
+    public ResponseEntity<UsersPromotionsRequests> create(@Valid @RequestBody UsersPromotionsRequestsDTO usersPromotionsRequestsDTO, @AuthenticationPrincipal UserDetails user) {
         return new ResponseEntity<>(promotionsSvc.create(usersPromotionsRequestsDTO,user.getUsername()), HttpStatus.CREATED);
     }
 
