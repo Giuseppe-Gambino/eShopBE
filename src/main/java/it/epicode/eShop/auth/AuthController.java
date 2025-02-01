@@ -51,7 +51,13 @@ public class AuthController {
     @PatchMapping(path = "/user/img", consumes = {"multipart/form-data"})
     public ResponseEntity<AppUser> updateUserImage(@AuthenticationPrincipal UserDetails user, @RequestParam MultipartFile images) {
         AppUser appUser = appUserService.updateImg(user.getUsername(),images);
-        return ResponseEntity.ok(appUser); // Restituisci il prodotto aggiornato
+        return ResponseEntity.ok(appUser);
+    }
+
+    @PatchMapping(path = "/user/info")
+    public ResponseEntity<AppUser> editUser(@AuthenticationPrincipal UserDetails user,@RequestParam String nome,@RequestParam String cognome,@RequestParam String email) {
+        AppUser appUser = appUserService.editUser(user.getUsername(),nome,cognome,email);
+        return ResponseEntity.ok(appUser);
     }
 
 
