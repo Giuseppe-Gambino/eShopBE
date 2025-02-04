@@ -109,26 +109,26 @@ public class Runner implements ApplicationRunner {
 
         // Prodotto 1
         Product product1 = new Product();
-        product1.setName("Logitech G Pro X");
-        product1.setDescription("Tastiera meccanica da gaming con switch intercambiabili");
-        product1.setPrice(new BigDecimal("149.99"));
-        product1.setImageUrls(Arrays.asList("https://example.com/logitech-g-pro-x.jpg"));
+        product1.setName("Wooting 60HE");
+        product1.setDescription("Tastiera analogica da gaming con layout del 60% e switch hotswap");
+        product1.setPrice(new BigDecimal("189.99"));
+        product1.setImageUrls(Arrays.asList("https://i.ytimg.com/vi/MAJl103M9bI/maxresdefault.jpg","https://wooting-web-files.ams3.digitaloceanspaces.com/public/open-graph.png","https://www.techpowerup.com/img/4VsnYJTnz4ZctaW7.jpg"));
         product1.setReseller(appUser);
         product1.setCategory(categorySvc.findById(9L));
         product1.setCreatedAt(LocalDate.now());
-        product1.getPriceHistory().put(LocalDate.now(), new BigDecimal("149.99"));
+        product1.getPriceHistory().put(LocalDate.now(), new BigDecimal("189.99"));
         products.add(product1);
 
         // Prodotto 2
         Product product2 = new Product();
-        product2.setName("Logitech G502 HERO");
-        product2.setDescription("Mouse da gaming con DPI fino a 25.600");
-        product2.setPrice(new BigDecimal("79.99"));
-        product2.setImageUrls(Arrays.asList("https://example.com/logitech-g502-hero.jpg"));
+        product2.setName("Logitech G Pro X Superlight 2");
+        product2.setDescription("Mouse simmetrico da 60 g con sensore HERO 2, robusto wireless LIGHTSPEED e interruttori LIGHTFORCE.");
+        product2.setPrice(new BigDecimal("139.00"));
+        product2.setImageUrls(Arrays.asList("https://www.club386.com/wp-content/uploads/2023/08/G-Pro-X-Superlight-2-Design-and-Weight-696x514.jpg","https://hd2.tudocdn.net/1219122?w=824&h=494","https://tpucdn.com/review/logitech-g-pro-x-superlight-2/images/title.jpg"));
         product2.setReseller(appUser);
         product2.setCategory(categorySvc.findById(9L));
         product2.setCreatedAt(LocalDate.now());
-        product2.getPriceHistory().put(LocalDate.now(), new BigDecimal("79.99"));
+        product2.getPriceHistory().put(LocalDate.now(), new BigDecimal("139.00"));
         products.add(product2);
 
         // Prodotto 3
@@ -145,26 +145,26 @@ public class Runner implements ApplicationRunner {
 
         // Prodotto 4
         Product product4 = new Product();
-        product4.setName("Wooting One");
-        product4.setDescription("Tastiera analogica per gaming con tecnologia a pressione");
-        product4.setPrice(new BigDecimal("199.99"));
-        product4.setImageUrls(Arrays.asList("https://example.com/wooting-one.jpg"));
+        product4.setName("Superglide Glass Mousepad");
+        product4.setDescription("Mousepad di vetro premium. Il massimo delle prestazioni e della durata, con uno strato superiore di vetro di alluminosilicato super forte.");
+        product4.setPrice(new BigDecimal("149.95"));
+        product4.setImageUrls(Arrays.asList("https://m.media-amazon.com/images/S/aplus-media-library-service-media/11daf5b3-b0de-453e-a72f-ec9bd6f083c3.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/20e2bf92-136e-410f-9d1d-701e28e962cd.__CR0,0,970,300_PT0_SX970_V1___.jpg"));
         product4.setReseller(appUser);
         product4.setCategory(categorySvc.findById(9L));
         product4.setCreatedAt(LocalDate.now());
-        product4.getPriceHistory().put(LocalDate.now(), new BigDecimal("199.99"));
+        product4.getPriceHistory().put(LocalDate.now(), new BigDecimal("149.95"));
         products.add(product4);
 
         // Prodotto 5
         Product product5 = new Product();
-        product5.setName("X-Raypad Gamma");
-        product5.setDescription("Mousepad in tessuto di alta qualità per un'ottima scorrevolezza");
-        product5.setPrice(new BigDecimal("29.99"));
-        product5.setImageUrls(Arrays.asList("https://example.com/x-raypad-gamma.jpg"));
+        product5.setName("X-Raypad Aqua Control +");
+        product5.setDescription("Mousepad in tessuto di alta qualità per un'ottima scorrevolezza e controllo");
+        product5.setPrice(new BigDecimal("48.99"));
+        product5.setImageUrls(Arrays.asList("https://i.ytimg.com/vi/d_i50gv8NFc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBwJnGGEp2BbBPBpOaZ0tob0u6LCA","https://shop.x-raypad.com/wp-content/uploads/2017/02/aqua-control-plus-white-version.jpg"));
         product5.setReseller(appUser);
         product5.setCategory(categorySvc.findById(32L));
         product5.setCreatedAt(LocalDate.now());
-        product5.getPriceHistory().put(LocalDate.now(), new BigDecimal("29.99"));
+        product5.getPriceHistory().put(LocalDate.now(), new BigDecimal("48.99"));
         products.add(product5);
 
         // Prodotto 6

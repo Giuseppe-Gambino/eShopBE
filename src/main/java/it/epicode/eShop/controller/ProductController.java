@@ -31,7 +31,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/findAll/page")
+    @GetMapping("/page")
     public ResponseEntity<Page<Product>> findAllPage(Pageable pageable) {
         Page<Product> products = productSvc.findAllPage(pageable);
         return ResponseEntity.ok(products);
