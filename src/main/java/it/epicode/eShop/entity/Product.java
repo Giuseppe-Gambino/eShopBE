@@ -1,5 +1,7 @@
 package it.epicode.eShop.entity;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.epicode.eShop.auth.AppUser;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -52,5 +54,14 @@ public class Product {
     @Column(name = "price")
     private Map<LocalDate, BigDecimal> priceHistory = new HashMap<>();
 
+    @JsonGetter("resellerId")
+    public Long getResellerId() {
+        return reseller != null ? reseller.getId() : null;
+    }
+
+    @JsonIgnore
+    public AppUser getReseller() {
+        return reseller;
+    }
 
 }
