@@ -133,14 +133,14 @@ public class Runner implements ApplicationRunner {
 
         // Prodotto 3
         Product product3 = new Product();
-        product3.setName("Pulsar Xlite V2");
-        product3.setDescription("Mouse ultraleggero con sensore PAW3370");
-        product3.setPrice(new BigDecimal("89.99"));
-        product3.setImageUrls(Arrays.asList("https://example.com/pulsar-xlite-v2.jpg"));
+        product3.setName("Pulsar Xlite V4 Mini");
+        product3.setDescription("Mouse ultraleggero con sensore Pulsar XS-1 Sensor");
+        product3.setPrice(new BigDecimal("99.95"));
+        product3.setImageUrls(Arrays.asList("https://www.pulsar.gg/cdn/shop/files/Xlite_v4_Black_Galleryimage_002_G.jpg?v=1721002495","https://www.pulsar.gg/cdn/shop/files/Pulsar-Xlite-v4-Gaming-Mouse_size1-Black_001_large.png?v=1736756231","https://www.pulsar.gg/cdn/shop/files/Pulsar-Xlite-v4-Gaming-Mouse_size1-Black_002_large.png?v=1736756231"));
         product3.setReseller(appUser);
         product3.setCategory(categorySvc.findById(9L));
         product3.setCreatedAt(LocalDate.now());
-        product3.getPriceHistory().put(LocalDate.now(), new BigDecimal("89.99"));
+        product3.getPriceHistory().put(LocalDate.now(), new BigDecimal("99.95"));
         products.add(product3);
 
         // Prodotto 4
