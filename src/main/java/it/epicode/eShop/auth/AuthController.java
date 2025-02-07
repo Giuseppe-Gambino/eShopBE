@@ -44,6 +44,11 @@ public class AuthController {
         return ResponseEntity.ok(appUserService.loadUserByUsername(user.getUsername()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AppUser> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(appUserService.findById(id));
+    }
+
     @GetMapping("/findAll")
     public ResponseEntity<List<AppUser>> getUser() {
         return ResponseEntity.ok(appUserService.findAll());

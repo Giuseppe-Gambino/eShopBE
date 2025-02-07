@@ -121,7 +121,7 @@ public class Runner implements ApplicationRunner {
 
         // Prodotto 2
         Product product2 = new Product();
-        product2.setName("Logitech G Pro X Superlight 2");
+        product2.setName("G Pro X Superlight 2");
         product2.setDescription("Mouse simmetrico da 60 g con sensore HERO 2, robusto wireless LIGHTSPEED e interruttori LIGHTFORCE.");
         product2.setPrice(new BigDecimal("139.00"));
         product2.setImageUrls(Arrays.asList("https://www.club386.com/wp-content/uploads/2023/08/G-Pro-X-Superlight-2-Design-and-Weight-696x514.jpg","https://hd2.tudocdn.net/1219122?w=824&h=494","https://tpucdn.com/review/logitech-g-pro-x-superlight-2/images/title.jpg"));
@@ -145,7 +145,7 @@ public class Runner implements ApplicationRunner {
 
         // Prodotto 4
         Product product4 = new Product();
-        product4.setName("Superglide Glass Mousepad");
+        product4.setName("Superglide Glass");
         product4.setDescription("Mousepad di vetro premium. Il massimo delle prestazioni e della durata, con uno strato superiore di vetro di alluminosilicato super forte.");
         product4.setPrice(new BigDecimal("149.95"));
         product4.setImageUrls(Arrays.asList("https://m.media-amazon.com/images/S/aplus-media-library-service-media/11daf5b3-b0de-453e-a72f-ec9bd6f083c3.__CR0,0,970,600_PT0_SX970_V1___.jpg","https://m.media-amazon.com/images/S/aplus-media-library-service-media/20e2bf92-136e-410f-9d1d-701e28e962cd.__CR0,0,970,300_PT0_SX970_V1___.jpg"));
@@ -157,8 +157,8 @@ public class Runner implements ApplicationRunner {
 
         // Prodotto 5
         Product product5 = new Product();
-        product5.setName("X-Raypad Aqua Control +");
-        product5.setDescription("Mousepad in tessuto di alta qualità per un'ottima scorrevolezza e controllo");
+        product5.setName("Aqua Control+");
+        product5.setDescription("X-Raypad Mousepad in tessuto di alta qualità per un'ottima scorrevolezza e controllo");
         product5.setPrice(new BigDecimal("48.99"));
         product5.setImageUrls(Arrays.asList("https://i.ytimg.com/vi/d_i50gv8NFc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBwJnGGEp2BbBPBpOaZ0tob0u6LCA","https://shop.x-raypad.com/wp-content/uploads/2017/02/aqua-control-plus-white-version.jpg"));
         product5.setReseller(appUser);
