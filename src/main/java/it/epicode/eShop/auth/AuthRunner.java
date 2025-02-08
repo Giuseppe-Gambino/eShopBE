@@ -35,6 +35,7 @@ public class AuthRunner implements ApplicationRunner {
             registerRequest.setEmail("stride454@gmail.com");
             registerRequest.setNome("STRIDE");
             registerRequest.setCognome("Owner");
+            registerRequest.setAvatar("https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp");
             appUserService.registerUser(registerRequest, Set.of(Role.ROLE_ADMIN));
         }
 

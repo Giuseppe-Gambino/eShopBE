@@ -56,6 +56,9 @@ public class AppUserService {
         appUser.setEmail(registerRequest.getEmail());
         appUser.setNome(registerRequest.getNome());
         appUser.setCognome(registerRequest.getCognome());
+
+            appUser.setAvatar(registerRequest.getAvatar());
+
         appUser.setRoles(roles);
 
         appUserRepository.save(appUser);

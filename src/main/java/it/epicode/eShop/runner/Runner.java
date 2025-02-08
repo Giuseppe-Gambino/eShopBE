@@ -135,6 +135,8 @@ public class Runner implements ApplicationRunner {
         Product product3 = new Product();
         product3.setName("Pulsar Xlite V4 Mini");
         product3.setDescription("Mouse ultraleggero con sensore Pulsar XS-1 Sensor");
+        product3.setDescriptionSeconda("Sensore Pulsar XS-1 Il sensore XS-1, esclusivo di Pulsar, vanta un'impressionante risoluzione di 32.000 dpi, una velocità di tracciamento di 750 IPS e un'accelerazione 50G, che fornisce precisione e velocità senza pari.");
+        product3.setDescriptionTerza("Ultra leggero Semplice ma non fragile. Lo abbiamo tenuto a mente sempre quando abbiamo progettato la struttura Xlite. Abbiamo progettato una struttura il più semplice possibile, ma ne abbiamo mantenuto la durata. Nel risultato, stai ottenendo un mouse da gioco ad alte prestazioni più leggero dell'uovo in mano.");
         product3.setPrice(new BigDecimal("99.95"));
         product3.setImageUrls(Arrays.asList("https://www.pulsar.gg/cdn/shop/files/Xlite_v4_Black_Galleryimage_002_G.jpg?v=1721002495","https://www.pulsar.gg/cdn/shop/files/Pulsar-Xlite-v4-Gaming-Mouse_size1-Black_001_large.png?v=1736756231","https://www.pulsar.gg/cdn/shop/files/Pulsar-Xlite-v4-Gaming-Mouse_size1-Black_002_large.png?v=1736756231"));
         product3.setReseller(appUser);

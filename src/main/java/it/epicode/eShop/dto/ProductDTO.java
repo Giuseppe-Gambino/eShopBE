@@ -14,6 +14,10 @@ public class ProductDTO {
     private String name;
     @NotEmpty(message = "Il campo descrizione non può essere vuoto")
     private String description;
+    @NotEmpty(message = "Il campo descrizione non può essere vuoto")
+    private String descriptionSeconda;
+    @NotEmpty(message = "Il campo descrizione non può essere vuoto")
+    private String descriptionTerza;
     @Positive(message = "Il valore price deve essere positivo")
     private BigDecimal price;
 }

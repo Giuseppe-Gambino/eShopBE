@@ -26,8 +26,15 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
+
+    @Column(name = "description_seconda", columnDefinition = "text")
+    private String descriptionSeconda;
+
+    @Column(name = "description_terza", columnDefinition = "text")
+    private String descriptionTerza;
+
 
     @Column(name = "price", precision = 19, scale = 2)
     private BigDecimal price;
