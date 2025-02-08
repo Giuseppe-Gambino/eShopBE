@@ -29,8 +29,14 @@ public class Product {
     @Column(name = "description", columnDefinition = "text")
     private String description;
 
+    @Column(name = "title_seconda")
+    private String titleSeconda;
+
     @Column(name = "description_seconda", columnDefinition = "text")
     private String descriptionSeconda;
+
+    @Column(name = "title_terza")
+    private String titleTerza;
 
     @Column(name = "description_terza", columnDefinition = "text")
     private String descriptionTerza;
