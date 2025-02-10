@@ -109,4 +109,8 @@ public class OrderSvc {
     public List<Order> getOrderByUser(String username) {
         return orderRepository.findByAppUser_Username(username);
     }
+
+    public Order findByStripeSessionId(String stripeSessionId){
+       return orderRepository.findByStripeSessionId(stripeSessionId);
+    }
 }

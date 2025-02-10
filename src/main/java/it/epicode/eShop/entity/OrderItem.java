@@ -1,6 +1,7 @@
 package it.epicode.eShop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.epicode.eShop.auth.AppUser;
 import jakarta.persistence.*;
 import lombok.Data;
 

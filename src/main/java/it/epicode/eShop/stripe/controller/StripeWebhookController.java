@@ -11,6 +11,7 @@ import com.stripe.net.Webhook;
 import com.stripe.service.OrderService;
 import it.epicode.eShop.enums.StatusOrder;
 import it.epicode.eShop.services.OrderSvc;
+import it.epicode.eShop.services.ResellerOrderSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,9 @@ public class StripeWebhookController {
 
     @Autowired
     private OrderSvc orderSvc;
+
+    @Autowired
+    private ResellerOrderSvc resellerOrderSvc;
 
 
     @PostMapping("/stripe")
@@ -47,6 +51,7 @@ public class StripeWebhookController {
 
             if ("checkout.session.completed".equals(event.getType())) {
                 orderSvc.updateOrderPaymentStatus(stripeSessionId, StatusOrder.PAID);
+                resellerOrderSvc.createResellerOrder(orderSvc.findByStripeSessionId(stripeSessionId));
             } else if ("checkout.session.expired".equals(event.getType()) || "payment_intent.payment_failed".equals(event.getType())) {
                 orderSvc.updateOrderPaymentStatus(stripeSessionId, StatusOrder.FAILED);
             }
