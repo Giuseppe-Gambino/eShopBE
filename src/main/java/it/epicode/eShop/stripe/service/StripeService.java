@@ -74,8 +74,8 @@ public class StripeService {
             SessionCreateParams params =
                     SessionCreateParams.builder()
                             .setMode(SessionCreateParams.Mode.PAYMENT)
-                            .setSuccessUrl("https://www.google.com/search?client=opera-gx&q=Google&sourceid=opera&ie=UTF-8&oe=UTF-8") // link della pagina di successo
-                            .setCancelUrl("http://localhost:8080/cancel") // link della pagina di fallimento
+                            .setSuccessUrl("http://localhost:4200/cart/success") // link della pagina di successo
+                            .setCancelUrl("http://localhost:4200/cart") // link della pagina di fallimento
                             .addAllLineItem(lineItems)
                             .build();
 

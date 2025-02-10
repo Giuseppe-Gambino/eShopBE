@@ -49,6 +49,11 @@ public class ExceptionHandlerClass extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @ExceptionHandler(value = EmptyCartException.class)
+    protected ResponseEntity<String> EmptyCartException(EmptyCartException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
     @ExceptionHandler(EntityExistsException.class)
     public ResponseEntity<String> handleEntityExistsException(EntityExistsException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());

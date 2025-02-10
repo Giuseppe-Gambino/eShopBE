@@ -166,12 +166,12 @@ public class AppUserService {
        return appUserRepository.save(appUser);
     }
 
-    public AppUser editUser(String username, String nome, String cognome, String email) {
+    public AppUser editUser(String username, UserUpdateDTO userUpdateDTO) {
         AppUser appUser = appUserRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("Utente con username: " + username + "non trovato"));
 
-        appUser.setNome(nome);
-        appUser.setCognome(cognome);
-        appUser.setEmail(email);
+        appUser.setNome(userUpdateDTO.getNome());
+        appUser.setCognome(userUpdateDTO.getCognome());
+        appUser.setEmail(userUpdateDTO.getEmail());
 
         return appUserRepository.save(appUser);
     }

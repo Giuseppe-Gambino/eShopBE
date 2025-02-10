@@ -8,6 +8,7 @@ import it.epicode.eShop.entity.CartItem;
 import it.epicode.eShop.entity.Order;
 import it.epicode.eShop.entity.OrderItem;
 import it.epicode.eShop.enums.StatusOrder;
+import it.epicode.eShop.exceptions.EmptyCartException;
 import it.epicode.eShop.repo.CartItemRepository;
 import it.epicode.eShop.repo.CartRepository;
 import it.epicode.eShop.repo.OrderItemRepository;
@@ -45,7 +46,7 @@ public class OrderSvc {
 
 
         if (cart.getCartItems().isEmpty()) {
-            throw new IllegalStateException("Il carrello è vuoto!");
+            throw new EmptyCartException("Il carrello è vuoto!");
         }
 
         List<CartItem> cartItemList = cart.getCartItems();

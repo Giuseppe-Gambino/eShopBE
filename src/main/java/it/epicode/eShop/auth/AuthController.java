@@ -61,8 +61,8 @@ public class AuthController {
     }
 
     @PatchMapping(path = "/user/info")
-    public ResponseEntity<AppUser> editUser(@AuthenticationPrincipal UserDetails user,@RequestParam String nome,@RequestParam String cognome,@RequestParam String email) {
-        AppUser appUser = appUserService.editUser(user.getUsername(),nome,cognome,email);
+    public ResponseEntity<AppUser> editUser(@AuthenticationPrincipal UserDetails user,@RequestBody UserUpdateDTO userUpdateDTO) {
+        AppUser appUser = appUserService.editUser(user.getUsername(),userUpdateDTO);
         return ResponseEntity.ok(appUser);
     }
 

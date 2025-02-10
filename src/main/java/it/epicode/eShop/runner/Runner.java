@@ -139,7 +139,7 @@ public class Runner implements ApplicationRunner {
         product3.setTitleTerza("ULTRA LIGHT WEIGHT");
         product3.setDescriptionTerza("'Simple but not simpler.' Abbiamo tenuto sempre a mente questo principio quando abbiamo progettato la struttura Xlite. Abbiamo realizzato una struttura il più semplice possibile, senza però comprometterne la resistenza. Il risultato? Un mouse da gaming ad alte prestazioni, più leggero di un uovo che tieni in mano.");
         product3.setPrice(new BigDecimal("99.95"));
-        product3.setImageUrls(Arrays.asList("https://www.pulsar.gg/cdn/shop/files/Xlite_v4_Black_Galleryimage_002_G.jpg?v=1721002495","https://www.pulsar.gg/cdn/shop/files/Pulsar-Xlite-v4-Gaming-Mouse_size1-Black_001_large.png?v=1736756231","https://www.pulsar.gg/cdn/shop/files/Pulsar-Xlite-v4-Gaming-Mouse_size1-Black_002_large.png?v=1736756231"));
+        product3.setImageUrls(Arrays.asList("https://www.pulsar.gg/cdn/shop/files/Xlite_v4_Black_Galleryimage_002_G.jpg?v=1721002495","https://www.pulsar.gg/cdn/shop/files/Pulsar-Xlite-v4-Gaming-Mouse_size1-Black_001_large.png?v=1736756231","https://www.pulsar.gg/cdn/shop/files/Pulsar-Xlite-v4-Gaming-Mouse_size1-Black_002_large.png?v=1736756231","https://m.media-amazon.com/images/I/71+hpx-ITqL._AC_SL1500_.jpg","https://m.media-amazon.com/images/I/71+S0UBFV9L._AC_SL1500_.jpg"));
         product3.setReseller(appUser);
         product3.setCategory(categorySvc.findById(9L));
         product3.setCreatedAt(LocalDate.now());
