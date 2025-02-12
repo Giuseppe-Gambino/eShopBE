@@ -132,4 +132,8 @@ public class ProductSvc {
 
         return productRepository.findAll(spec, pageable);
     }
+
+    public Page<Product> findAllByResellerUsername(String username, Pageable pageable) {
+        return productRepository.findAllByResellerUsername(username, pageable);
+    }
 }

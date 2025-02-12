@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -81,6 +82,13 @@ public class ProductController {
             Pageable pageable) {
 
         Page<Product> products = productSvc.getFilteredProducts(name, category, minPrice, maxPrice, pageable);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/findByReseller")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SELLER')")
+    public ResponseEntity<Page<Product>> findAllByReseller(@AuthenticationPrincipal UserDetails user, Pageable pageable) {
+        Page<Product> products = productSvc.findAllByResellerUsername(user.getUsername(), pageable);
         return ResponseEntity.ok(products);
     }
 

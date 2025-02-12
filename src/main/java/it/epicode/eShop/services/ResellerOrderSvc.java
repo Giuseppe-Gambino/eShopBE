@@ -1,12 +1,14 @@
 package it.epicode.eShop.services;
 
+import it.epicode.eShop.auth.AppUser;
+import it.epicode.eShop.auth.AppUserRepository;
+import it.epicode.eShop.auth.AppUserService;
+import it.epicode.eShop.dto.OrderSummaryDTO;
 import it.epicode.eShop.entity.Order;
 import it.epicode.eShop.entity.OrderItem;
-import it.epicode.eShop.entity.Product;
 import it.epicode.eShop.entity.ResellerOrder;
 import it.epicode.eShop.enums.StatusResellerOrder;
 import it.epicode.eShop.repo.ResellerOrderRepository;
-import it.epicode.eShop.repo.specs.ProductSpecs;
 import it.epicode.eShop.repo.specs.ResellerOrderSpecs;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 @Service
 public class ResellerOrderSvc {
     private final ResellerOrderRepository resellerOrderRepo;
+    private final AppUserRepository appUserRepository;
 
 
     public List<ResellerOrder> createResellerOrder(Order order) {
@@ -45,16 +47,6 @@ public class ResellerOrderSvc {
 
     }
 
-    public ResellerOrder updateResellerOrder(Long id, StatusResellerOrder statusResellerOrder) {
-
-       ResellerOrder resellerOrder = resellerOrderRepo.findById(id)
-               .orElseThrow(() -> new EntityNotFoundException("ResellerOrder con id: " + id + "non trovato"));
-
-       resellerOrder.setOrderStatus(statusResellerOrder);
-
-       return resellerOrderRepo.save(resellerOrder);
-
-    }
 
     public Page<ResellerOrder> getFilteredResellerOrder(
             String username,
@@ -89,6 +81,28 @@ public class ResellerOrderSvc {
         return resellerOrderRepo.findAll(spec, pageable);
     }
 
+    public OrderSummaryDTO countStatsResellerOrder(String username) {
 
+        Long resellerId = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Reseller con username: " + username + "non trovato")).getId();
+
+        LocalDate date = LocalDate.now();
+        OrderSummaryDTO orderSummaryDTO = new OrderSummaryDTO();
+        orderSummaryDTO.setTotalOrders(resellerOrderRepo.countByReseller_IdAndCreatedAt(resellerId,date));
+        orderSummaryDTO.setInElaborazione(resellerOrderRepo.countByReseller_IdAndCreatedAtAndOrderStatus(resellerId, date, StatusResellerOrder.IN_ELABORAZIONE));
+        orderSummaryDTO.setSpedito(resellerOrderRepo.countByReseller_IdAndCreatedAtAndOrderStatus(resellerId, date, StatusResellerOrder.SPEDITO));
+        orderSummaryDTO.setConsegnato(resellerOrderRepo.countByReseller_IdAndCreatedAtAndOrderStatus(resellerId, date, StatusResellerOrder.CONSEGNATO));
+
+        return orderSummaryDTO;
+    }
+
+    public ResellerOrder editStatusResellerOrder(Long id, StatusResellerOrder statusResellerOrder) {
+        ResellerOrder resellerOrder = resellerOrderRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("ResellerOrder con id: " + id + "non trovato"));
+
+        resellerOrder.setOrderStatus(statusResellerOrder);
+
+        return resellerOrderRepo.save(resellerOrder);
+    }
 
 }

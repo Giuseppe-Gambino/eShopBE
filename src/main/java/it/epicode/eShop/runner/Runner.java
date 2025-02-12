@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Order(10)
 @RequiredArgsConstructor
@@ -143,7 +144,14 @@ public class Runner implements ApplicationRunner {
         product3.setReseller(appUser);
         product3.setCategory(categorySvc.findById(9L));
         product3.setCreatedAt(LocalDate.now());
-        product3.getPriceHistory().put(LocalDate.now(), new BigDecimal("99.95"));
+        product3.getPriceHistory().putAll(Map.of(
+                LocalDate.of(2024, 10, 1), new BigDecimal("79.95"),
+                LocalDate.of(2024, 12, 1), new BigDecimal("119.95"),
+                LocalDate.of(2025, 2, 1), new BigDecimal("99.95"),
+                LocalDate.of(2025, 2, 9), new BigDecimal("114.95"),
+                LocalDate.now(), new BigDecimal("99.95")
+        ));
+
         products.add(product3);
 
         // Prodotto 4
