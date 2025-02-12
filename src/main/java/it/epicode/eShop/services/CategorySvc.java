@@ -29,9 +29,9 @@ public class CategorySvc {
                 .orElseThrow(() -> new EntityNotFoundException("Categoria non trovata"));
     }
 
-    public Category create(CategoryDTO categoryDTO) {
+    public Category create(String nome) {
         Category category = new Category();
-        category.setName(categoryDTO.getName());
+        category.setName(nome);
         return categoryRepository.save(category);
     }
 

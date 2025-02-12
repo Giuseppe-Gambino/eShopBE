@@ -96,9 +96,7 @@ public class Runner implements ApplicationRunner {
 
         for (String nome : categorie) {
             if (!categorySvc.existsByNome(nome)) { // Evita duplicati
-                CategoryDTO categoryDTO = new CategoryDTO();
-                categoryDTO.setName(nome);
-                categorySvc.create(categoryDTO);
+                categorySvc.create(nome);
             }
         }
 
