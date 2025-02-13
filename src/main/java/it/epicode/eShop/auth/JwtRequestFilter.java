@@ -7,6 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,15 +17,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private CustomUserDetailsService customUserDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -34,25 +38,31 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwtToken = null;
 
-        // Estrae il token JWT dal header Authorization
+        // Estrae il token JWT dall'header Authorization
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
+                // Controlla se il token è scaduto
+                if (jwtTokenUtil.getExpirationDateFromToken(jwtToken).before(new Date())) {
+                    throw new ExpiredJwtException(null, null, "JWT token expired");
+                }
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+            } catch (ExpiredJwtException e) {
+                // Invio della risposta HTTP 401 in caso di token scaduto
+                System.out.println("Il token JWT è scaduto");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "JWT token expired");
+                return;
             } catch (IllegalArgumentException e) {
                 System.out.println("Impossibile ottenere il token JWT");
-            } catch (ExpiredJwtException e) {
-                System.out.println("Il token JWT è scaduto");
             }
         } else {
-            // logger.warn("Il token JWT non inizia con Bearer");
             chain.doFilter(request, response);
             return;
         }
 
         // Valida il token e configura l'autenticazione nel contesto di sicurezza
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

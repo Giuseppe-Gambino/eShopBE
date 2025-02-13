@@ -55,10 +55,10 @@ public class JwtTokenUtil {
 
     // Genera un token JWT per l'utente, includendo i ruoli
     public String generateToken(UserDetails userDetails) {
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        List<String> roles = authorities.stream()
-                                        .map(GrantedAuthority::getAuthority)
-                                        .collect(Collectors.toList());
+        Collection<?> authorities = userDetails.getAuthorities();
+        List<String> roles = (List<String>) authorities.stream()
+                .map(item -> item.toString())
+                .collect(Collectors.toList());
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
