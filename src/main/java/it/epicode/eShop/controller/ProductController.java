@@ -52,7 +52,7 @@ public class ProductController {
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
-    @PatchMapping(path = "/products/{id}/images", consumes = {"multipart/form-data"})
+    @PatchMapping(path = "/{id}/images", consumes = {"multipart/form-data"})
     public ResponseEntity<Product> updateProductImages(@PathVariable Long id, @RequestParam List<MultipartFile> images) {
         Product product = productSvc.updateImg(id, images);
         return ResponseEntity.ok(product); // Restituisci il prodotto aggiornato
