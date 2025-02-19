@@ -1,7 +1,7 @@
 package it.epicode.eShop.entity;
 
 import it.epicode.eShop.auth.AppUser;
-import it.epicode.eShop.enums.ObjectPartner;
+import it.epicode.eShop.enums.StatusTicket;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-public class UsersPromotionsRequests {
+public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -21,14 +21,15 @@ public class UsersPromotionsRequests {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-    @Enumerated
-    @Column(name = "object_partner")
-    private ObjectPartner objectPartner;
+    @Column(name = "object")
+    private String object;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "mark")
-    private Boolean mark;
+    @Enumerated
+    @Column(name = "status_Ticket")
+    private StatusTicket status;
+
 
 }

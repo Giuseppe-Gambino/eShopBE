@@ -1,13 +1,12 @@
 package it.epicode.eShop.dto;
 
-import it.epicode.eShop.auth.AppUser;
-import it.epicode.eShop.enums.ObjectPartner;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class UsersPromotionsRequestsDTO {
-    private ObjectPartner objectPartner;
+public class TicketDTO {
+    @NotEmpty(message = "Il campo oggetto non può essere vuoto")
+    private String object;
     @NotEmpty(message = "Il campo descrizione non può essere vuoto")
     private String description;
 }

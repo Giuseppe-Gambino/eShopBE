@@ -36,7 +36,7 @@ public class AuthRunner implements ApplicationRunner {
             registerRequest.setNome("STRIDE");
             registerRequest.setCognome("Owner");
             registerRequest.setAvatar("https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp");
-            appUserService.registerUser(registerRequest, Set.of(Role.ROLE_ADMIN));
+            appUserService.registerUser(registerRequest, Set.of(Role.ROLE_ADMIN,Role.ROLE_USER,Role.ROLE_SELLER));
         }
 
         // Creazione dell'utente user se non esiste
@@ -60,7 +60,7 @@ public class AuthRunner implements ApplicationRunner {
             registerRequest.setEmail("seller454@gmail.com");
             registerRequest.setNome("seller");
             registerRequest.setCognome("seller");
-            appUserService.registerUser(registerRequest, Set.of(Role.ROLE_SELLER));
+            appUserService.registerUser(registerRequest, Set.of(Role.ROLE_SELLER,Role.ROLE_USER));
         }
 
 
