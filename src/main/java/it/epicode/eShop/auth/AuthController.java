@@ -1,9 +1,12 @@
 package it.epicode.eShop.auth;
 
+import it.epicode.eShop.dto.RoleUpdateDTO;
 import it.epicode.eShop.entity.Product;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -54,6 +57,11 @@ public class AuthController {
         return ResponseEntity.ok(appUserService.findAll());
     }
 
+    @GetMapping("/findPageAllUsers")
+    public ResponseEntity<Page<AppUser>> findPageUser(Pageable pageable) {
+        return ResponseEntity.ok(appUserService.findPageUser(pageable));
+    }
+
     @PatchMapping(path = "/user/img", consumes = {"multipart/form-data"})
     public ResponseEntity<AppUser> updateUserImage(@AuthenticationPrincipal UserDetails user, @RequestParam MultipartFile images) {
         AppUser appUser = appUserService.updateImg(user.getUsername(),images);
@@ -67,29 +75,16 @@ public class AuthController {
     }
 
 
-
-    @PutMapping("/promoteSeller/{idUser}")
+    @PostMapping("/updateRoles")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<AppUser> updateToSeller(@PathVariable Long idUser) {
-                return ResponseEntity.ok(appUserService.updateToSeller(idUser));
+    public ResponseEntity<AppUser> updateRoles(@RequestBody RoleUpdateDTO request) {
+        AppUser updatedUser = appUserService.updateRoles(
+                request.getIdUser(),
+                request.getRolesToAdd(),
+                request.getRolesToRemove()
+        );
+        return ResponseEntity.ok(updatedUser);
     }
 
-    @PutMapping("/promoteAdmin/{idUser}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<AppUser> updateToAdmin(@PathVariable Long idUser) {
-        return ResponseEntity.ok(appUserService.updateToAdmin(idUser));
-    }
-
-    @PutMapping("/removeSeller/{idUser}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<AppUser> removeSeller(@PathVariable Long idUser) {
-        return ResponseEntity.ok(appUserService.removeSeller(idUser));
-    }
-
-    @PutMapping("/removeAdmin/{idUser}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<AppUser> removeAdmin(@PathVariable Long idUser) {
-        return ResponseEntity.ok(appUserService.removeAdmin(idUser));
-    }
 }
 

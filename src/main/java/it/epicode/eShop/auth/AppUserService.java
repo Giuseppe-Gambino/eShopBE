@@ -7,6 +7,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -104,6 +106,22 @@ public class AppUserService {
         return appUser;
     }
 
+    public AppUser updateRoles(Long idUser, Set<Role> rolesToAdd, Set<Role> rolesToRemove) {
+        AppUser appUser = appUserRepository.findById(idUser)
+                .orElseThrow(() -> new EntityNotFoundException("Utente con id: " + idUser + " non trovato"));
+
+        Set<Role> roles = new HashSet<>(appUser.getRoles());
+        if (rolesToAdd != null) {
+            roles.addAll(rolesToAdd);
+        }
+        if (rolesToRemove != null) {
+            roles.removeAll(rolesToRemove);
+        }
+        appUser.setRoles(roles);
+
+        return appUserRepository.save(appUser);
+    }
+
     public AppUser updateToSeller(Long idUser) {
         AppUser appUser = appUserRepository.findById(idUser)
                 .orElseThrow(() -> new EntityNotFoundException("Utente con id: " + idUser + "non trovato"));
@@ -150,6 +168,10 @@ public class AppUserService {
 
     public List<AppUser> findAll() {
        return appUserRepository.findAll();
+    }
+
+    public Page<AppUser> findPageUser(Pageable pageable) {
+        return appUserRepository.findAll(pageable);
     }
 
     public Boolean existsByUsername(String username) {
