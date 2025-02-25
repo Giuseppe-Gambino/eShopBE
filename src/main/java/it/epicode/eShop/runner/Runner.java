@@ -109,6 +109,10 @@ public class Runner implements ApplicationRunner {
         Product product1 = new Product();
         product1.setName("Wooting 60HE");
         product1.setDescription("Tastiera analogica da gaming con layout del 60% e switch hotswap");
+        product1.setDimensioni("Formato compatto, circa 18x6 cm");
+        product1.setFeature("Tecnologia analogica a portata completa per una risposta immediata");
+        product1.setDettagli("Costruita con materiali di alta qualità e design ergonomico");
+
         product1.setTitleSeconda("INPUT ANALOGICO a portata completa.");
         product1.setDescriptionSeconda("Il wooting 60HE rileva il movimento completo dell'interruttore con precisione di 0,1 mm dall'inizio alla fine. Ogni singola chiave emette un segnale analogico che può essere utilizzato per numerose funzionalità che migliorano l'esperienza di battitura e di gioco.");
         product1.setTitleTerza("RAPID TRIGGER");
@@ -130,6 +134,10 @@ public class Runner implements ApplicationRunner {
         Product product2 = new Product();
         product2.setName("G Pro X Superlight 2");
         product2.setDescription("Mouse simmetrico da 60 g con sensore HERO 2, robusto wireless LIGHTSPEED e interruttori LIGHTFORCE.");
+        product2.setDimensioni("Circa 12x7x4 cm");
+        product2.setFeature("Sensore HERO 2 per un tracciamento di precisione elevata");
+        product2.setDettagli("Design leggero e confortevole per sessioni di gioco prolungate");
+
         product2.setTitleSeconda("SENSORE HERO 2");
         product2.setDescriptionSeconda("Precisione di livello professionale con il sensore più avanzato per il gaming. Tracciamento affidabile con oltre 888+ IPS e fino a 44.000 DPI.");
         product2.setTitleTerza("LIGHTSPEED WIRELESS");
@@ -152,6 +160,9 @@ public class Runner implements ApplicationRunner {
         Product product3 = new Product();
         product3.setName("Pulsar Xlite V4 Mini");
         product3.setDescription("Mouse ultraleggero con sensore Pulsar XS-1 Sensor");
+        product3.setDimensioni("Le dimensioni del prodotto sono 30x20x10 cm.");
+        product3.setFeature("Il mouse è dotato di un sensore Pulsar XS-1 con risoluzione di 32.000 dpi, include funzionalità avanzate come il controllo tramite software e la connettività Wireless.");
+        product3.setDettagli("Realizzato con materiali di alta qualità, il prodotto è resistente e durevole.");
         product3.setTitleSeconda("Sensore Pulsar XS-1");
         product3.setDescriptionSeconda("Il sensore XS-1, esclusivo di Pulsar, vanta un'impressionante risoluzione di 32.000 dpi, una velocità di tracciamento di 750 IPS e un'accelerazione 50G, che fornisce precisione e velocità senza pari.");
         product3.setTitleTerza("ULTRA LIGHT WEIGHT");
@@ -175,6 +186,9 @@ public class Runner implements ApplicationRunner {
         Product product4 = new Product();
         product4.setName("Superglide Glass");
         product4.setDescription("Mousepad di vetro premium. Il massimo delle prestazioni e della durata, con uno strato superiore di vetro di alluminosilicato super forte.");
+        product4.setDimensioni("Il mousepad ha dimensioni di 30x20 cm.");
+        product4.setFeature("Super scorrevole e resistente grazie alla superficie in vetro di alluminosilicato.");
+        product4.setDettagli("Materiale di alta qualità, resistente e durevole. Superficie liscia e resistente, progettata per durare nel tempo e offrire prestazioni costanti.");
         product4.setTitleSeconda("Vetro di Alluminosilicato");
         product4.setDescriptionSeconda("Il vetro di alluminosilicato offre una superficie liscia e resistente.");
         product4.setTitleTerza("Prestazioni e Durata");
@@ -230,7 +244,7 @@ public class Runner implements ApplicationRunner {
         product7.setPrice(new BigDecimal("149.99"));
         product7.setImageUrls(Arrays.asList("https://assets.corsair.com/image/upload/c_pad,q_85,h_1100,w_1100,f_auto/products/Gaming-Headsets/hs80-max-wireless/steel-grey/HS80_MAX_WIRELESS_STEEL_GRAY_02.webp","https://assets.corsair.com/image/upload/c_pad,q_85,h_1100,w_1100,f_auto/products/Gaming-Headsets/hs80-max-wireless/steel-grey/HS80_MAX_WIRELESS_STEEL_GRAY_14.webp","https://assets.corsair.com/image/upload/c_pad,q_85,h_1100,w_1100,f_auto/products/Gaming-Headsets/hs80-max-wireless/steel-grey/HS80_MAX_WIRELESS_STEEL_GRAY_01.webp","https://assets.corsair.com/image/upload/c_pad,q_85,h_1100,w_1100,f_auto/products/Gaming-Headsets/hs80-max-wireless/steel-grey/HS80_MAX_WIRELESS_STEEL_GRAY_06.webp","https://assets.corsair.com/image/upload/c_pad,q_85,h_1100,w_1100,f_auto/products/Gaming-Headsets/hs80-max-wireless/steel-grey/HS80_MAX_WIRELESS_STEEL_GRAY_05.webp","https://assets.corsair.com/image/upload/c_pad,q_85,h_1100,w_1100,f_auto/products/Gaming-Headsets/hs80-max-wireless/steel-grey/HS80_MAX_WIRELESS_STEEL_GRAY_03.webp"));
         product7.setReseller(appUser);
-        product7.setCategory(categorySvc.findById(15L));
+        product7.setCategory(categorySvc.findById(14L));
         product7.setCreatedAt(LocalDate.of(2024, 9, 12));
         product7.getPriceHistory().putAll(Map.of(
                 LocalDate.of(2024, 9, 12), new BigDecimal("199.95"),
@@ -331,7 +345,7 @@ public class Runner implements ApplicationRunner {
         product13.setImageUrls(Arrays.asList("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmj-aGtGd-rXKTRcRoWIQ4VyW_D4BTwuv2DA&s",
                 "https://assets2.razerzone.com/images/pnx.assets/cdb5cdc59332c751db1b05b9fd38f613/razer-kraken-v3-triforce-mobile-768x460.jpg"));
         product13.setReseller(appUser);
-        product13.setCategory(categorySvc.findById(15L));
+        product13.setCategory(categorySvc.findById(14L));
         product13.setCreatedAt(LocalDate.now());
         product13.getPriceHistory().put(LocalDate.now(), new BigDecimal("129.00"));
         products.add(product13);
@@ -410,7 +424,7 @@ public class Runner implements ApplicationRunner {
         product18.setPrice(new BigDecimal("129.90"));
         product18.setImageUrls(Arrays.asList("https://resource.logitechg.com/w_695,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/g733/g733-feature4-3.png?v=1","https://ae01.alicdn.com/kf/Hbdb961fcde57485a932f184e429656c96.jpg"));
         product18.setReseller(appUser);
-        product18.setCategory(categorySvc.findById(15L));
+        product18.setCategory(categorySvc.findById(14L));
         product18.setCreatedAt(LocalDate.now());
         product18.getPriceHistory().put(LocalDate.now(), new BigDecimal("129.90"));
         products.add(product18);

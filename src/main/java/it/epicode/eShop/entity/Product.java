@@ -26,6 +26,15 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "dimensioni")
+    private String dimensioni;
+
+    @Column(name = "feature")
+    private String feature;
+
+    @Column(name = "dettagli")
+    private String dettagli;
+
     @Column(name = "description", columnDefinition = "text")
     private String description;
 
