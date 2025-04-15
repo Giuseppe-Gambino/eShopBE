@@ -28,6 +28,8 @@ public class StripeService {
     //-> productName , amount , quantity , currency
     //-> return sessionId and url
 
+    @Value("{url.front}")
+    private String urlFrontEnd;
 
 
 
@@ -74,8 +76,8 @@ public class StripeService {
             SessionCreateParams params =
                     SessionCreateParams.builder()
                             .setMode(SessionCreateParams.Mode.PAYMENT)
-                            .setSuccessUrl("http://localhost:4200/cart/success") // link della pagina di successo
-                            .setCancelUrl("http://localhost:4200/cart") // link della pagina di fallimento
+                            .setSuccessUrl( urlFrontEnd + "/cart/success") // link della pagina di successo
+                            .setCancelUrl( urlFrontEnd + "/cart") // link della pagina di fallimento
                             .addAllLineItem(lineItems)
                             .build();
 

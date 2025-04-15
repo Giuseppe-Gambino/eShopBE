@@ -33,6 +33,8 @@ public class Runner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        if (!productSvc.findAll().isEmpty()) return;
+
         List<String> categorie = List.of(
                 // Tastiere
                 "tastiere",
