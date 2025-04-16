@@ -76,8 +76,8 @@ public class StripeService {
             SessionCreateParams params =
                     SessionCreateParams.builder()
                             .setMode(SessionCreateParams.Mode.PAYMENT)
-                            .setSuccessUrl( urlFrontEnd + "/cart/success") // link della pagina di successo
-                            .setCancelUrl( urlFrontEnd + "/cart") // link della pagina di fallimento
+                            .setSuccessUrl( "https://fascinating-baklava-37ead4.netlify.app/cart/success") // link della pagina di successo
+                            .setCancelUrl( "https://fascinating-baklava-37ead4.netlify.app/cart") // link della pagina di fallimento
                             .addAllLineItem(lineItems)
                             .build();
 
