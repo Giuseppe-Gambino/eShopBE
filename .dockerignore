@@ -1,0 +1,41 @@
+# Ignore version control directories
+.git/
+.gitignore
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ignore build outputs
+target/
+*.class
+
+# Ignore temporary and log files
+*.log
+tmp/
+temp/
+*.tmp
+
+# Ignore environment and secret files
+.env*
+*.pem
+*.key
+*.crt
+
+# Ignore documentation and auxiliary files
+*.md
+README*
+
+# Ignore Docker-related files
+Dockerfile*
+docker-compose*
+
+# Ignore test files
+test/
+tests/
+
+# Ignore other unnecessary files
+*.local.yml
+config.local.*
